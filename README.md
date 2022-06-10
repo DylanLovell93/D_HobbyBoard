@@ -4,11 +4,11 @@ App allows users to create pages where they can share projects they are working 
 
 ### Front end Deployment
 
-[Front end via Netlify](https://hobbyboard.netlify.app/)
+[Front end via Netlify](https://dhobbyboard.netlify.app/)
 
 ### Back-end Deployment
 
-[Back end via Heroku](https://hobbyboard.herokuapp.com/)
+[Back end via Heroku](https://still-mountain-57952.herokuapp.com/)
 
 ## User Story
 

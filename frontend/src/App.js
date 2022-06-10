@@ -1,30 +1,32 @@
-import logo from "./logo.svg";
-import "./App.css";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import New from "./pages/New";
-import AllProjects from "./pages/AllProjects";
-import ProjectDetails from "./pages/ProjectDetails";
-import NavBar from "./components/common/NavBar";
-import TopBarM from "./components/common/TopBarM";
-import UserSignup from "./pages/UserSignup";
-import UserSignIn from "./pages/UserSignIn";
-import Profile from "./pages/Profile";
-import EditProfilePage from "./pages/EditProfilePage";
-import EditProjectPage from "./pages/EditProjectPage";
-import NewPostPage from "./pages/NewPostPage";
-import { io } from "socket.io-client";
-import LandingPage from "./pages/LandingPage";
+import logo from './logo.svg';
+import './App.css';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+import New from './pages/New';
+import AllProjects from './pages/AllProjects';
+import ProjectDetails from './pages/ProjectDetails';
+import NavBar from './components/common/NavBar';
+import TopBarM from './components/common/TopBarM';
+import UserSignup from './pages/UserSignup';
+import UserSignIn from './pages/UserSignIn';
+import Profile from './pages/Profile';
+import EditProfilePage from './pages/EditProfilePage';
+import EditProjectPage from './pages/EditProjectPage';
+import NewPostPage from './pages/NewPostPage';
+import { io } from 'socket.io-client';
+import LandingPage from './pages/LandingPage';
 const URL = process.env.REACT_APP_API_URL;
 export const socket = io(URL, {
   query: {
-    username: localStorage.getItem("credentials"),
+    username: localStorage.getItem('credentials'),
   },
 });
 
+//test comment
+
 function App() {
-  const [res, setRes] = useState("Loading...");
+  const [res, setRes] = useState('Loading...');
 
   useEffect(() => {
     const testQuery = async () => {

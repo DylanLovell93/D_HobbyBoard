@@ -9,8 +9,10 @@
 }
 
 .TopBarM .topLogo {
+  display: flex;
   height: 50px;
   width: auto;
+  align-items: center;
 }
 
 .TopBarM .back-button {

@@ -33,19 +33,18 @@
   transform: scale(1.5);
 }
 
-
 .Nav div svg {
   stroke: white;
 }
 
 .Nav .setting svg {
   fill: white;
-  stroke-width: .1px;
-  transform: scale(1.2)
+  stroke-width: 0.1px;
+  transform: scale(1.2);
 }
 
 .Nav .currentLocation svg {
-  stroke: #379EDE;
+  stroke: #379ede;
 }
 
 .Nav img:hover {
@@ -84,5 +83,22 @@
   .Nav .TopBarM .topLogo {
     max-height: 50px;
     height: 50px;
+  }
+  .Nav .TopBarM .topLogo svg {
+    height: 27.5px;
+  }
+
+  .Nav .TopBarM .backButton {
+    height: 100%;
+    position: unset;
+  }
+
+  .Nav .TopBarM .backButton svg {
+    height: auto;
+    transform: scale(2);
+    top: 3px;
+    left: 10px;
+    position: relative;
+    stroke-width: 0.8;
   }
 }

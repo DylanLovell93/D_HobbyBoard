@@ -1,7 +1,9 @@
+//import image to default to
+import noImage from "../assets/noimage.png";
+
 // function for default image;
 export default function defaultImage(event) {
-  event.target.src =
-    "https://redzonekickboxing.com/wp-content/uploads/2017/04/default-image.jpg";
+  event.target.src = noImage;
 }
 
 //function for hoisting collaborator to the top

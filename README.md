@@ -2,13 +2,17 @@
 
 App allows users to create pages where they can share projects they are working on and allow other users to search for projects and join if they are interested.
 
+### Project Management
+
+[Project Management via Trello](https://trello.com/b/pj0FaNaC/hobby-board)
+
 ### Front end Deployment
 
-[Front end via Netlify](https://dhobbyboard.netlify.app/)
+[Front end via Netlify](https://rhobbyboard.netlify.app/)
 
 ### Back-end Deployment
 
-[Back end via Heroku](https://still-mountain-57952.herokuapp.com/)
+[Back end via Heroku](https://rhobbyboard.herokuapp.com/)
 
 ## User Story
 
@@ -30,7 +34,7 @@ Quaternary, Media; culture; graphical
 
 ### Who is this product for (customer persona)
 
-Hobbyist who want to group/partner with others
+Hobbyist who wants to group/partner with others
 
 ### What problem does it solve?
 

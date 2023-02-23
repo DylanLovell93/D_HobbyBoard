@@ -62,6 +62,7 @@ const ProjectDetails = () => {
   };
 
   const handleJoin = () => {
+    if (!cred) return;
     axios
       .post(`${API}connections`, {
         username: localStorage.getItem("credentials"),
@@ -160,7 +161,7 @@ const ProjectDetails = () => {
     setUpdateConnections(!updateConnections);
   };
 
-  console.log(project.profile_image)
+  console.log(project.profile_image);
   return (
     <div className="ProjectDetails">
       <img

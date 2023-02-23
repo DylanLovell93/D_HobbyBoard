@@ -52,6 +52,7 @@ const PostCard = ({
     }
   };
   const handleLike = () => {
+    if (!username) return;
     setCurrentLikes(!currentlyLike);
     axios
       .post(`${URL}posts/${post_id}/likes/${username}`)

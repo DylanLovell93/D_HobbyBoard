@@ -1,0 +1,13 @@
+.NewProjectPage {
+  box-sizing: border-box;
+  height: calc(100% - 140px);
+  width: 100%;
+  padding-top: 25%;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.NewProjectPage::-webkit-scrollbar {
+  display: none;
+}

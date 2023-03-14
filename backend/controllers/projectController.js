@@ -1,4 +1,3 @@
-const e = require("express");
 const express = require("express");
 const projects = express.Router();
 const {
@@ -15,7 +14,7 @@ const {
   getOnePost,
   createPost,
   deletePost,
-} = require("../queries/postsQuery");
+} = require("../queries/postsQueries");
 
 //get all project
 projects.get("/", async (_, res) => {

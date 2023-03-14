@@ -11,7 +11,7 @@ const {
   createComment,
   deleteComment,
 } = require("../queries/commentsQueries");
-const { getLikes, postLike } = require("../queries/postsQuery");
+const { getLikes, postLike } = require("../queries/postsQueries");
 
 //create routes
 

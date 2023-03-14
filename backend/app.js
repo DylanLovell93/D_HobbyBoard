@@ -4,13 +4,13 @@ const express = require("express");
 const http = require("http");
 
 //IMPORT QUERIES
-const { testQuery } = require("./queries/testQuery");
+const { testQuery } = require("./queries/testQueries");
 
 //IMPORT CONTROLLERS
-const projectsControllers = require("./controllers/projectControllers");
+const projectController = require("./controllers/projectController");
 const userController = require("./controllers/userController");
 const connectionsController = require("./controllers/connectionsController");
-const postControllers = require("./controllers/postController");
+const postController = require("./controllers/postController");
 
 // CONFIGURATION
 const app = express();
@@ -31,9 +31,9 @@ app.use(cors());
 app.use(express.json()); // Parse incoming JSON
 
 // ROUTES
-app.use("/projects", projectsControllers);
+app.use("/projects", projectController);
 app.use("/users", userController);
-app.use("/posts", postControllers);
+app.use("/posts", postController);
 app.use("/connections", connectionsController);
 app.use("/connections", notify);
 

@@ -5,8 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import NewProjectPage from "./components/pages/NewProjectPage/NewProjectPage";
 import ProjectsPage from "./components/pages/ProjectsPage/ProjectsPage";
 import ProjectDetailsPage from "./components/pages/ProjectDetailsPage/ProjectDetailsPage";
-import NavBar from "./components/organisms/NavBar/NavBar";
-import TopBarM from "./components/organisms/TopBarM/TopBarM";
 import UserSignUpPage from "./components/pages/UserSignUpPage/UserSignUpPage";
 import UserSignInPage from "./components/pages/UserSignInPage/UserSignInPage";
 import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
@@ -39,7 +37,6 @@ function App() {
   return (
     <div className="App">
       <main>
-        <TopBarM />
         <Routes>
           <Route exact path="/" element={<LandingPage />} />
           <Route path="/signIn" element={<UserSignInPage />} />
@@ -53,7 +50,6 @@ function App() {
           <Route path="/profile/:username" element={<ProfilePage />} />
           <Route path="/profile/editProfile" element={<EditProfilePage />} />
         </Routes>
-        <NavBar />
       </main>
     </div>
   );

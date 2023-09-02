@@ -1,0 +1,6 @@
+.ProjectsPage {
+    box-sizing: border-box;
+    height: calc(100% - 70px);
+    width: 100vw;
+  }
+  

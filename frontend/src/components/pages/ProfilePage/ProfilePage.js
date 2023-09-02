@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import ProfileDetails from "../../organisms/ProfileDetails/ProfileDetails";
+import NavBar from "../../organisms/NavBar/NavBar";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
@@ -13,13 +14,16 @@ const ProfilePage = () => {
   //pass in username to ProfileDetails
 
   return (
+    <>
+    <NavBar />
     <div className="Profile">
       {!localStorage.getItem("credentials") && !username ? (
         <p>Please sign in to view your profile!</p>
-      ) : (
-        <ProfileDetails username={user} />
-      )}
+        ) : (
+          <ProfileDetails username={user} />
+          )}
     </div>
+    </>
   );
 };
 

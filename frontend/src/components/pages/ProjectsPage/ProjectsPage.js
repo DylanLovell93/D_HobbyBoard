@@ -1,10 +1,15 @@
 import Projects from "../../organisms/Projects/Projects";
+import NavBar from "../../organisms/NavBar/NavBar";
+import "./ProjectsPage.css";
 
 const ProjectsPage = () => {
   return (
-    <div className="AllProjects">
+    <>
+    <NavBar />
+    <div className="ProjectsPage">
       <Projects />
     </div>
+    </>
   );
 };
 

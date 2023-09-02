@@ -1,0 +1,14 @@
+.NavHamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    svg {
+        color: white;
+        height: 30px;
+        width: 30px;
+    };
+    .MuiTooltip-tooltip {
+        margin-top: 0px;
+    };
+}

@@ -1,6 +1,6 @@
 .UserSignInPage {
   box-sizing: border-box;
-  height: calc(100% - 140px);
+  height: calc(100% - 70px);
   width: 100%;
   padding-top: 25%;
   overflow-y: scroll;
@@ -13,10 +13,6 @@
 }
 
 @media screen and (min-width: 719px) {
-  .UserSignInPage {
-    height: 100%;
-    padding-top: 70px;
-  }
 }
 
 .username-input,

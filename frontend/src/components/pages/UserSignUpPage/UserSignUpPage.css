@@ -1,0 +1,16 @@
+.UserSignUpPage {
+  box-sizing: border-box;
+  height: calc(100% - 140px);
+  width: 100%;
+  padding-top: 25%;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.UserSignUpPage::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (min-width: 719px) {
+}

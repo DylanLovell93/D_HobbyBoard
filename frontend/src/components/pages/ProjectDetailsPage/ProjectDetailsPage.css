@@ -1,0 +1,134 @@
+.ProjectDetails {
+  box-sizing: border-box;
+  height: calc(100% - 70px);
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  text-align: left;
+}
+
+.ProjectDetails .info {
+  text-align: center;
+  color: white;
+}
+
+.ProjectDetails .pBanner {
+  width: 100vw;
+  height: 150px;
+  object-fit: cover;
+}
+
+.ProjectDetails .info h2,
+.ProjectDetails .info h3 {
+  margin: 0px;
+  margin-top: 10px;
+}
+
+.ProjectDetails h2 {
+  font-size: 36px;
+  padding-top: 20px;
+}
+
+.ProjectDetails::-webkit-scrollbar {
+  display: none;
+}
+
+.ProjectDetails .collabBttn {
+  width: 100%;
+  font-size: 1.65em;
+  padding: 7.5px;
+  text-align: center;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.ProjectDetails .cancel {
+  border: 2px solid #fa1e4e;
+}
+
+.ProjectDetails .member {
+  border: 2px solid #44d62c;
+}
+
+.ProjectDetails .join {
+  border: 2px solid #7bc1f4;
+}
+
+.ProjectDetails .followContainer {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.ProjectDetails .followBttn {
+  width: 25%;
+  padding: 5px;
+  border: none;
+  background-color: #7bc1f4;
+  color: white;
+  text-align: center;
+}
+.ProjectDetails .unfollowBttn {
+  background-color: #fa1e4e;
+}
+
+.ProjectDetails .editBttn {
+  background-color: #44d62c;
+}
+
+.ProjectDetails .proDetails {
+  text-align: center;
+  padding: 0px 5.5%;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.ProjectDetails .proDetails p {
+  text-align: left;
+}
+
+.ProjectDetails .proDetails h3 {
+  margin: 20px 0px;
+}
+
+.ProjectDetails .archHold {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ProjectDetails .archBttn {
+  padding: 2px;
+  color: white;
+  border: none;
+  width: 100px;
+  background-color: #44d62c;
+}
+
+.ProjectDetails .archive {
+  background-color: #fa1e4e;
+}
+
+.ProjectDetails .proDetails {
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 20px;
+  background-color: #1a2835;
+}
+
+@media screen and (min-width: 719px) {
+  .ProjectDetails {
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .ProjectDetails h2 {
+    font-size: 40px;
+  }
+}

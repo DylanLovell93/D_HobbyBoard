@@ -1,32 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import New from './pages/New';
-import AllProjects from './pages/AllProjects';
-import ProjectDetails from './pages/ProjectDetails';
-import NavBar from './components/common/NavBar';
-import TopBarM from './components/common/TopBarM';
-import UserSignup from './pages/UserSignup';
-import UserSignIn from './pages/UserSignIn';
-import Profile from './pages/Profile';
-import EditProfilePage from './pages/EditProfilePage';
-import EditProjectPage from './pages/EditProjectPage';
-import NewPostPage from './pages/NewPostPage';
-import { io } from 'socket.io-client';
-import LandingPage from './pages/LandingPage';
+import "./App.css";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import NewProjectPage from "./components/pages/NewProjectPage/NewProjectPage";
+import ProjectsPage from "./components/pages/ProjectsPage/ProjectsPage";
+import ProjectDetailsPage from "./components/pages/ProjectDetailsPage/ProjectDetailsPage";
+import UserSignUpPage from "./components/pages/UserSignUpPage/UserSignUpPage";
+import UserSignInPage from "./components/pages/UserSignInPage/UserSignInPage";
+import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
+import EditProfilePage from "./components/pages/EditProfilePage/EditProfilePage";
+import EditProjectPage from "./components/pages/EditProjectPage/EditProjectPage";
+import NewPostPage from "./components/pages/NewPostPage/NewPostPage";
+import { io } from "socket.io-client";
+import LandingPage from "./components/pages/LandingPage/LandingPage";
 const URL = process.env.REACT_APP_API_URL;
 export const socket = io(URL, {
   query: {
-    username: localStorage.getItem('credentials'),
+    username: localStorage.getItem("credentials"),
   },
 });
 
 //test comment
 
 function App() {
-  const [res, setRes] = useState('Loading...');
+  const [res, setRes] = useState("Loading...");
 
   useEffect(() => {
     const testQuery = async () => {
@@ -40,34 +37,19 @@ function App() {
   return (
     <div className="App">
       <main>
-        <TopBarM />
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              // <header className="App-header">
-              //   <Link to="/projects">
-              //     <p>All Project</p>
-              //   </Link>
-              //   <img src={logo} className="App-logo" alt="logo" />
-              //   <p>Here is our database call = {res}</p>
-              // </header>
-              <LandingPage />
-            }
-          />
-          <Route path="/signIn" element={<UserSignIn />} />
-          <Route path="/signup" element={<UserSignup />} />
-          <Route path="/projects" element={<AllProjects />} />
-          <Route path="/projects/:pid" element={<ProjectDetails />} />
+          <Route exact path="/" element={<LandingPage />} />
+          <Route path="/signIn" element={<UserSignInPage />} />
+          <Route path="/signup" element={<UserSignUpPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/:pid" element={<ProjectDetailsPage />} />
           <Route path="/projects/:pid/edit" element={<EditProjectPage />} />
           <Route path="/projects/:pid/newPost" element={<NewPostPage />} />
-          <Route path="/projects/new" element={<New />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/:username" element={<Profile />} />
+          <Route path="/projects/new" element={<NewProjectPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/:username" element={<ProfilePage />} />
           <Route path="/profile/editProfile" element={<EditProfilePage />} />
         </Routes>
-        <NavBar />
       </main>
     </div>
   );

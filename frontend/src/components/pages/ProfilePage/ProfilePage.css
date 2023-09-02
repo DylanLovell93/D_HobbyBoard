@@ -1,0 +1,15 @@
+.Profile {
+  box-sizing: border-box;
+  height: calc(100% - 70px);
+  width: 100%;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.Profile::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (min-width: 719px) {
+}

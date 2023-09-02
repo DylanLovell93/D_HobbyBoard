@@ -1,0 +1,20 @@
+.HamburgerMenu {
+  margin-top: 80px;
+  .MenuItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+    min-height: 50px;
+    background-color: #243548;
+    border: 2px solid white;
+    color: white;
+  }
+  .SignUp {
+    background-color: blue;
+  }
+  .SignIn {
+    background-color: green;
+  }
+}

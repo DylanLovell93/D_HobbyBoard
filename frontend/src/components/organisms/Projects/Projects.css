@@ -23,12 +23,6 @@
   text-decoration: none;
 }
 
-.AllProjects {
-  box-sizing: border-box;
-  height: calc(100% - 140px);
-  width: 100vw;
-}
-
 .hidden {
   opacity: 0;
 }
@@ -54,10 +48,6 @@
 }
 
 @media screen and (min-width: 719px) {
-  .AllProjects {
-    height: 100%;
-    padding-top: 70px;
-  }
   .Projects {
     grid-template-columns: repeat(2, minmax(0px, 1fr));
   }

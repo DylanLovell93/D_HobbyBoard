@@ -1,0 +1,30 @@
+.ProfileButton {
+    svg {
+        stroke: white;
+        height: 30px;
+        width: 30px;
+        @media screen and (min-width: 719px) {
+            display: none;
+        };
+    }
+    span {
+        color: white;
+        font-weight: bold;
+        font-size: 1em;
+        font-family: Arial, Helvetica, sans-serif;
+        @media screen and (max-width: 718px) {
+            display: none;
+        }
+    }
+}
+
+.MuiTooltip-tooltip {
+    background-color: #243548!important;
+    color: white;
+}
+
+.MuiTooltip-arrow {
+    &:before {
+        background-color: #243548!important;
+    }
+}

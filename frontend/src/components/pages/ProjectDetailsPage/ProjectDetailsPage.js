@@ -5,6 +5,7 @@ import defaultImage from "../../../helpers/helperFunction";
 import ConnModal from "../../organisms/ConnModal/ConnModal.js";
 import PostSection from "../../organisms/PostSection/PostSection";
 import "./ProjectDetailsPage.css";
+import NavBar from "../../organisms/NavBar/NavBar";
 
 const ProjectDetailsPage = () => {
   const cred = localStorage.getItem("credentials");
@@ -163,13 +164,15 @@ const ProjectDetailsPage = () => {
 
   console.log(project.profile_image);
   return (
+    <>
+    <NavBar />
     <div className="ProjectDetails">
       <img
         src={project.project_image || ""}
         alt="Project Banner"
         className="pBanner"
         onError={defaultImage}
-      />
+        />
       <img src={project.profile_image} alt="" />
       <div className="info">
         <h2>{project.name}</h2>
@@ -182,8 +185,8 @@ const ProjectDetailsPage = () => {
           </button>
         ) : followers.find((connection) => connection.username === cred) ? (
           <button
-            onClick={handleCancelFollow}
-            className="followBttn unfollowBttn"
+          onClick={handleCancelFollow}
+          className="followBttn unfollowBttn"
           >
             Unfollow
           </button>
@@ -202,20 +205,20 @@ const ProjectDetailsPage = () => {
             <button
               onClick={handleArchive}
               className={project.archived ? "archBttn" : "archBttn archive"}
-            >
+              >
               {project.archived ? "Unarchive" : "Archive"}
             </button>
           </div>
         ) : (
           <></>
-        )}
+          )}
       </div>
       {/* Edit Project Page Button for authorized users */}
       {/* Delete Project Button */}
       {/* Links/Resources */}
       {/* {project.links.map((link) => {
-                return <a href={link}>{link}</a>
-            })} */}
+        return <a href={link}>{link}</a>
+      })} */}
       {/* Contributors */}
       {cred === project.creator ||
       collaborators.find((connection) => connection.username === cred) ? (
@@ -238,16 +241,17 @@ const ProjectDetailsPage = () => {
         project_image={project.project_image}
         creator={project.creator}
         member={member}
-      />
+        />
       {showModal && (
         <ConnModal
-          setDisplay={handleShowModal}
-          project_id={project.project_id}
-          owner={project.creator}
-          pageReload={pageReload}
+        setDisplay={handleShowModal}
+        project_id={project.project_id}
+        owner={project.creator}
+        pageReload={pageReload}
         />
-      )}
+        )}
     </div>
+    </>
   );
 };
 

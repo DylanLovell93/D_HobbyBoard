@@ -1,30 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 import logo from "../../../assets/landingLogo.svg";
-import "./LandingPage.css";
+import LandingButtons from "../../molecules/LandingButtons/LandingButtons";
+import "./LandingPage.scss";
 
 function LandingPage() {
-  const nav = useNavigate();
-  const handleExplore = () => {
-    nav("/projects");
-  };
-  const handleSignIn = () => {
-    nav("/signIn");
-  };
-  const handleSignUp = () => {
-    nav("/signup");
-  };
   return (
     <div className="LandingPage">
+      <LandingButtons desktop />
       <img src={logo} alt="Hobby Board" />
-      <button className="Explore" onClick={handleExplore}>
-        Explore
-      </button>
-      <button className="SignIn" onClick={handleSignIn}>
-        Sign In
-      </button>
-      <button className="NewAccount" onClick={handleSignUp}>
-        New Account
-      </button>
+      <Typography variant="h4"> Where Creativity meets Community!</Typography>
+      <LandingButtons />
     </div>
   );
 }

@@ -2,15 +2,10 @@
   box-sizing: border-box;
   height: calc(100% - 70px);
   width: 100%;
-  padding: 80px 10px;
+  padding-top: 25%;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
-
-  .signInTitle {
-    color: white;
-    margin-bottom: 60px;
-  }
 }
 
 .UserSignInPage::-webkit-scrollbar {
@@ -18,17 +13,37 @@
 }
 
 @media screen and (min-width: 719px) {
-  .UserSignInPage {
-    padding: 10% 10%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .signInTitle {
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: auto;
-    }
-  }
+}
+
+.username-input,
+.password-input,
+.button {
+  color: antiquewhite;
+}
+
+.button2 {
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #313131;
+  border: 2px solid #9633c5;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+a {
+  text-decoration: none;
+  color: antiquewhite;
+}
+
+.username-input input,
+.password-input input {
+  background-color: transparent;
+}
+
+.button {
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #589bc1;
 }

@@ -1,0 +1,33 @@
+.username-input, .password-input{
+    width: fit-content;
+    margin: 0 auto;
+    margin-bottom: 34px;
+}
+
+.username-input label{
+    width: fit-content;
+    display: block;
+}
+.password-input label{
+    width: fit-content;
+    display: block;
+}
+
+.username-input input{
+    height: 24px;
+    width: 200px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.password-input input{
+    height: 24px;
+    width: 200px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+input[type="submit"]{
+    margin-bottom: 34px;
+}

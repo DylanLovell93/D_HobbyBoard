@@ -8,11 +8,9 @@ const getAllProjects = async () => {
   //try to fetch all items from projects table
   try {
     const allProjects = await db.any("SELECT * FROM projects");
-    //return it
     return allProjects;
-  } catch (err) {
-    //if there's an error, return it.
-    return err;
+  } catch (error) {
+    throw Error("Internal Server Error", { cause: error });
   }
 };
 

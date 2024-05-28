@@ -1,33 +1,16 @@
-//import the DB variable that we'll be making queries to
 const db = require("../db/dbConfig");
 
-//getAllProjects async function
-//input(none)
-//output array of all projects
 const getAllProjects = async () => {
-  //try to fetch all items from projects table
-  try {
-    const allProjects = await db.any("SELECT * FROM projects");
-    return allProjects;
-  } catch (error) {
-    throw Error("Internal Server Error", { cause: error });
-  }
+  const allProjects = await db.any("SELECT * FROM projects");
+  return allProjects;
 };
 
-//getOneProject
 const getOneProject = async (pid) => {
-  //try to fetch project using pid
-  try {
-    const targetProject = await db.one(
-      "SELECT * FROM projects WHERE project_id=$1",
-      pid
-    );
-    //return it
-    return targetProject;
-  } catch (err) {
-    //if there's an error, return it.
-    return err;
-  }
+  const targetProject = await db.one(
+    "SELECT * FROM projects WHERE project_id=$1",
+    pid
+  );
+  return targetProject;
 };
 
 //createProject async function

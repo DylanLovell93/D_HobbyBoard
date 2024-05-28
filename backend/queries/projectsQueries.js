@@ -39,17 +39,12 @@ const createProject = async ({
 //output delete project
 const deleteProject = async (id) => {
   // try to delete project
-  try {
-    const removeProject = await db.one(
-      "DELETE FROM projects WHERE project_id=$1 RETURNING *",
-      id
-    );
-    //return removeProject
-    return removeProject;
-  } catch (err) {
-    //if err, return err
-    return err;
-  }
+  const removeProject = await db.one(
+    "DELETE FROM projects WHERE project_id=$1 RETURNING *",
+    id
+  );
+
+  return removeProject;
 };
 
 //updateProject function

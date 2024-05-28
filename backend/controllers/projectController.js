@@ -59,10 +59,19 @@ projects.post("/", async (req, res) => {
 
 //delete project
 projects.delete("/:id", async (req, res) => {
-  const removeProject = await deleteProject(req.params.id);
-  removeProject.project_id
-    ? res.status(200).json(removeProject)
-    : res.status(404).json({ error: "error" });
+  try {
+    const removeProject = await deleteProject(req.params.id);
+    res.status(200).json(removeProject);
+  } catch (error) {
+    const statusCode =
+      error.message === "No data returned from the query." ? 404 : 500;
+    res.status(statusCode).json({
+      message:
+        statusCode === 404
+          ? "404: Project Not Found"
+          : "500: Internal Server Error",
+    });
+  }
 });
 
 //put project

@@ -45,8 +45,16 @@ projects.get("/:pid", async (req, res) => {
 
 //create project
 projects.post("/", async (req, res) => {
-  const addProject = await createProject(req.body);
-  res.status(200).json(addProject);
+  try {
+    const addProject = await createProject(req.body);
+    res.status(201).json(addProject);
+  } catch (error) {
+    const statusCode = error.code.includes("2350") ? 400 : 500;
+    res.status(statusCode).json({
+      message:
+        statusCode === 400 ? "400: Bad Request" : "500: Internal Server Error",
+    });
+  }
 });
 
 //delete project

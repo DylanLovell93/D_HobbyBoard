@@ -16,7 +16,6 @@ INSERT INTO projects(name, details, project_image, archived, creator) VALUES
 ('Noob game devs', 'Hello, I''m look for others who would like to learn about the process of developing games, to play and understand game design, and to collaborate with others in researching and creating our own games.', 'https://i.imgur.com/s5n9x1q.jpg', false, 'JD'),
 ('CompatABLE', 'An idea for creating a website that can be used to find compatability between two different pieces of technology, be it hardware or software', 'https://www.invensis.net/blog/wp-content/uploads/2015/06/Compatibility-Testing-Invensis.jpg', false, 'DylanL'),
 ('Legal Drive', 'An illegal racing game that takes place in New York city, where racers can coordinate street racing events using an underground App. This App will track winners and transfer money to participants.', 'https://www.harlemworldmagazine.com/wp-content/uploads/2020/09/The-Fate-Of-The-Furious-64-f3.jpg', false, 'BZ');
---('Rohan''s Gamer Dating App', 'something something games', null, false, 'RS'),
 
 INSERT INTO connections (username, project_id, permissions) VALUES
 ('RS', 1, 'owner'),

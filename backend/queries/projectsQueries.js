@@ -16,25 +16,22 @@ const getOneProject = async (pid) => {
 //createProject async function
 //input(project)
 //output new project
-const createProject = async (project) => {
-  //try to create new project
-  try {
-    const { name, details, project_image, archived, creator } = project;
-    const newProject = await db.one(
-      "INSERT INTO projects (name, details, project_image, archived, creator) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [name, details, project_image, archived, creator]
-    );
-    //add owner to connections table
-    const connection = await db.one(
-      "INSERT INTO connections (username, project_id, permissions) VALUES ($1, $2, $3) RETURNING *",
-      [newProject.creator, newProject.project_id, "owner"]
-    );
-    //return project
-    return newProject;
-  } catch (err) {
-    //if err, return err
-    return err;
-  }
+const createProject = async ({
+  name,
+  details,
+  project_image,
+  archived,
+  creator,
+}) => {
+  const newProject = await db.one(
+    "INSERT INTO projects (name, details, project_image, archived, creator) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+    [name, details, project_image, archived, creator]
+  );
+  await db.one(
+    "INSERT INTO connections (username, project_id, permissions) VALUES ($1, $2, $3) RETURNING *",
+    [newProject.creator, newProject.project_id, "owner"]
+  );
+  return newProject;
 };
 
 //deleteProject async function

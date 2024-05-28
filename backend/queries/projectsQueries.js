@@ -1,4 +1,5 @@
 const db = require("../db/dbConfig");
+const updateProjectQueryBuilder = require("../helperFunctions/queryHelpers");
 
 const getAllProjects = async () => {
   const allProjects = await db.any("SELECT * FROM projects");
@@ -43,27 +44,32 @@ const deleteProject = async (id) => {
     "DELETE FROM projects WHERE project_id=$1 RETURNING *",
     id
   );
-
   return removeProject;
 };
 
 //updateProject function
 //input(id, project)
 //output updated project
-const updateProject = async (id, project) => {
+const updateProject = async (
+  id,
+  { name, details, project_image, archived }
+) => {
+  const updateQuery = updateProjectQueryBuilder({
+    id,
+    name,
+    details,
+    project_image,
+    archived,
+  });
   //try to update project
-  try {
-    const { name, details, project_image, archived } = project;
-    const update = await db.one(
-      "UPDATE projects SET name=$2, details=$3, project_image=$4, archived=$5 WHERE project_id=$1 RETURNING *",
-      [id, name, details, project_image, archived]
-    );
-    //return update
-    return update;
-  } catch (err) {
-    //if err, return err
-    return err;
-  }
+  const update = await db.one(
+    "UPDATE projects SET " +
+      updateQuery.queryString +
+      " WHERE project_id=$1 RETURNING *",
+    updateQuery.queryVariables
+  );
+  //return update
+  return update;
 };
 
 // query to change the archive status of a project

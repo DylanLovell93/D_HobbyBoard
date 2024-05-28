@@ -76,10 +76,23 @@ projects.delete("/:id", async (req, res) => {
 
 //put project
 projects.put("/:id", async (req, res) => {
-  const update = await updateProject(req.params.id, req.body);
-  update.project_id
-    ? res.status(200).json(update)
-    : res.status(404).json({ error: "error" });
+  try {
+    const update = await updateProject(req.params.id, req.body);
+    res.status(200).json(update);
+  } catch (error) {
+    const statusObj = {
+      400: "400: Bad Request",
+      404: "404: Project Not Found.",
+      500: "500: Internal Server Error",
+    };
+    const statusCode =
+      error.message === "No data returned from the query."
+        ? 404
+        : error.message === "Bad Request"
+        ? 400
+        : 500;
+    res.status(statusCode).json({ message: statusObj[statusCode] });
+  }
 });
 
 //put project Archive status

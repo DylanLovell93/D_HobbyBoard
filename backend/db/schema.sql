@@ -22,11 +22,11 @@ CREATE TABLE users (
 
 CREATE TABLE projects (
     project_id SERIAL PRIMARY KEY,
-    name TEXT UNIQUE,
-    details TEXT,
+    name TEXT UNIQUE NOT NULL,
+    details TEXT NOT NULL,
     project_image TEXT,
     archived BOOLEAN DEFAULT false,
-    creator TEXT,
+    creator TEXT NOT NULL,
     FOREIGN KEY (creator) REFERENCES users(username)
 );
 

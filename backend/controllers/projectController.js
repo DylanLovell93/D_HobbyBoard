@@ -6,7 +6,6 @@ const {
   getOneProject,
   deleteProject,
   updateProject,
-  updateArchiveStatus,
 } = require("../queries/projectsQueries");
 
 const {
@@ -16,57 +15,106 @@ const {
   deletePost,
 } = require("../queries/postsQueries");
 
-//get all project
 projects.get("/", async (_, res) => {
-  const allProjects = await getAllProjects();
-  if (allProjects.length === 0) {
-    res.status(404).json({ error: "error" });
-  } else {
+  try {
+    const allProjects = await getAllProjects();
     res.status(200).json(allProjects);
+  } catch (error) {
+    res.status(500).json({ message: "500: Internal Server Error" });
   }
 });
 
 //get one project
 projects.get("/:pid", async (req, res) => {
-  const { pid } = req.params;
-  const singleProject = await getOneProject(pid);
-  res.status(200).json(singleProject);
+  try {
+    const { pid } = req.params;
+    const singleProject = await getOneProject(pid);
+    res.status(200).json(singleProject);
+  } catch (error) {
+    const statusCode =
+      error.message === "No data returned from the query." ? 404 : 500;
+    res.status(statusCode).json({
+      message:
+        statusCode === 404
+          ? "404: Project Not Found"
+          : "500: Internal Server Error",
+    });
+  }
 });
 
 //create project
 projects.post("/", async (req, res) => {
-  const addProject = await createProject(req.body);
-  res.status(200).json(addProject);
+  try {
+    const addProject = await createProject(req.body);
+    res.status(201).json(addProject);
+  } catch (error) {
+    const statusCode = error.code.includes("2350") ? 400 : 500;
+    res.status(statusCode).json({
+      message:
+        statusCode === 400 ? "400: Bad Request" : "500: Internal Server Error",
+    });
+  }
 });
 
 //delete project
 projects.delete("/:id", async (req, res) => {
-  const removeProject = await deleteProject(req.params.id);
-  removeProject.project_id
-    ? res.status(200).json(removeProject)
-    : res.status(404).json({ error: "error" });
+  try {
+    const removeProject = await deleteProject(req.params.id);
+    res.status(200).json(removeProject);
+  } catch (error) {
+    const statusCode =
+      error.message === "No data returned from the query." ? 404 : 500;
+    res.status(statusCode).json({
+      message:
+        statusCode === 404
+          ? "404: Project Not Found"
+          : "500: Internal Server Error",
+    });
+  }
 });
 
 //put project
 projects.put("/:id", async (req, res) => {
-  const update = await updateProject(req.params.id, req.body);
-  update.project_id
-    ? res.status(200).json(update)
-    : res.status(404).json({ error: "error" });
+  try {
+    const update = await updateProject(req.params.id, req.body);
+    res.status(200).json(update);
+  } catch (error) {
+    const statusObj = {
+      400: "400: Bad Request",
+      404: "404: Project Not Found.",
+      500: "500: Internal Server Error",
+    };
+    const statusCode =
+      error.message === "No data returned from the query."
+        ? 404
+        : error.message === "Bad Request"
+        ? 400
+        : 500;
+    res.status(statusCode).json({ message: statusObj[statusCode] });
+  }
 });
 
 //put project Archive status
 projects.put("/:id/archive", async (request, response) => {
-  const { id } = request.params;
-  const currentStatus = await getOneProject(id);
-  if (currentStatus.project_id) {
-    const updatedStatus = await updateArchiveStatus(
-      id,
-      !currentStatus.archived
-    );
-    response.status(200).json(updatedStatus);
-  } else {
-    response.status(400).json("error: invalid ID");
+  try {
+    const { id } = request.params;
+    const currentStatus = await getOneProject(id);
+    if (currentStatus.project_id) {
+      const updatedProject = await updateProject(id, {
+        archived: !currentStatus.archived,
+      });
+      response.status(200).json(updatedProject);
+    }
+  } catch (error) {
+    const statusObj = {
+      404: "404: Project Not Found.",
+      500: "500: Internal Server Error",
+    };
+
+    const statusCode =
+      error.message === "No data returned from the query." ? 404 : 500;
+
+    response.status(statusCode).json({ message: statusObj[statusCode] });
   }
 });
 

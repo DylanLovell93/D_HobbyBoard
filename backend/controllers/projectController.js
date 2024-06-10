@@ -33,13 +33,13 @@ projects.get("/", async (_, res) => {
 
 //get one project
 projects.get(
-  "/:id",
+  "/:project_id",
   validateProjectIdMiddleware,
   validateProjectExistsMiddleware,
   async (req, res) => {
     try {
-      const { id } = req.params;
-      const singleProject = await getOneProject(id);
+      const { project_id } = req.params;
+      const singleProject = await getOneProject(project_id);
       res.status(200).json(singleProject);
     } catch (error) {
       res.status(500).json({
@@ -73,12 +73,12 @@ projects.post(
 
 //delete project
 projects.delete(
-  "/:id",
+  "/:project_id",
   validateProjectIdMiddleware,
   validateProjectExistsMiddleware,
   async (req, res) => {
     try {
-      const removeProject = await deleteProject(req.params.id);
+      const removeProject = await deleteProject(req.params.project_id);
       res.status(200).json(removeProject);
     } catch (error) {
       res.status(500).json({

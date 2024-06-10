@@ -50,11 +50,11 @@ users.post("/signin", async (request, response) => {
   }
 });
 
-users.put("/:user", async (request, response) => {
+users.put("/:user_name", async (request, response) => {
   console.log("Put request to users/username");
   const edits = request.body;
-  const { user } = request.params;
-  const editedUser = await updateUser(edits, user);
+  const { user_name } = request.params;
+  const editedUser = await updateUser(edits, user_name);
   response.status(200).json(editedUser);
 });
 

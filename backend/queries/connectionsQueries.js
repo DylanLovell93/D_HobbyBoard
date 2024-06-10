@@ -107,7 +107,7 @@ const newFollower = async ({ username, project_id }) => {
   }
 };
 
-const getAllFollowers = async ({ pid }) => {
+const getAllFollowers = async ({ project_id }) => {
   try {
     const followers = await db.one(
       "SELECT * FROM connections WHERE project_id=$1 AND permissions=$2",

@@ -29,8 +29,8 @@ connections.post("/followers", async (request, response) => {
 });
 
 //Get all followers of single project
-connections.get("/followers/:pid", async (request, response) => {
-  console.log("Post /connections/followers/:pid");
+connections.get("/followers/:project_id", async (request, response) => {
+  console.log("Post /connections/followers/:project_id");
   const followers = await getAllFollowers(request.params);
   response.status(200).json(followers);
 });

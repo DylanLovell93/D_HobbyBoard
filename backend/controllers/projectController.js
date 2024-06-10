@@ -15,108 +15,118 @@ const {
   deletePost,
 } = require("../queries/postsQueries");
 
+const {
+  validateProjectIdMiddleware,
+  validateProjectExistsMiddleware,
+  validateProjectStructureMiddleware,
+  validateCreateProjectMiddleware,
+} = require("../middleware/projectsMiddleware");
+
 projects.get("/", async (_, res) => {
   try {
     const allProjects = await getAllProjects();
     res.status(200).json(allProjects);
   } catch (error) {
-    res.status(500).json({ message: "500: Internal Server Error" });
+    res.status(500).json({ message: error.message });
   }
 });
 
 //get one project
-projects.get("/:pid", async (req, res) => {
-  try {
-    const { pid } = req.params;
-    const singleProject = await getOneProject(pid);
-    res.status(200).json(singleProject);
-  } catch (error) {
-    const statusCode =
-      error.message === "No data returned from the query." ? 404 : 500;
-    res.status(statusCode).json({
-      message:
-        statusCode === 404
-          ? "404: Project Not Found"
-          : "500: Internal Server Error",
-    });
+projects.get(
+  "/:id",
+  validateProjectIdMiddleware,
+  validateProjectExistsMiddleware,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const singleProject = await getOneProject(id);
+      res.status(200).json(singleProject);
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
   }
-});
+);
 
 //create project
-projects.post("/", async (req, res) => {
-  try {
-    const addProject = await createProject(req.body);
-    res.status(201).json(addProject);
-  } catch (error) {
-    const statusCode = error.code.includes("2350") ? 400 : 500;
-    res.status(statusCode).json({
-      message:
-        statusCode === 400 ? "400: Bad Request" : "500: Internal Server Error",
-    });
+
+projects.post(
+  "/",
+  validateProjectStructureMiddleware,
+  validateCreateProjectMiddleware,
+  async (req, res) => {
+    try {
+      const addProject = await createProject(req.body);
+      res.status(201).json(addProject);
+    } catch (error) {
+      const statusCode = error.code.includes("2350") ? 400 : 500;
+      res.status(statusCode).json({
+        message:
+          statusCode === 400
+            ? "400: Bad Request, Project name is taken."
+            : error.message,
+      });
+    }
   }
-});
+);
 
 //delete project
-projects.delete("/:id", async (req, res) => {
-  try {
-    const removeProject = await deleteProject(req.params.id);
-    res.status(200).json(removeProject);
-  } catch (error) {
-    const statusCode =
-      error.message === "No data returned from the query." ? 404 : 500;
-    res.status(statusCode).json({
-      message:
-        statusCode === 404
-          ? "404: Project Not Found"
-          : "500: Internal Server Error",
-    });
+projects.delete(
+  "/:id",
+  validateProjectIdMiddleware,
+  validateProjectExistsMiddleware,
+  async (req, res) => {
+    try {
+      const removeProject = await deleteProject(req.params.id);
+      res.status(200).json(removeProject);
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
   }
-});
+);
 
 //put project
-projects.put("/:id", async (req, res) => {
-  try {
-    const update = await updateProject(req.params.id, req.body);
-    res.status(200).json(update);
-  } catch (error) {
-    const statusObj = {
-      400: "400: Bad Request",
-      404: "404: Project Not Found.",
-      500: "500: Internal Server Error",
-    };
-    const statusCode =
-      error.message === "No data returned from the query."
-        ? 404
-        : error.message === "Bad Request"
-        ? 400
-        : 500;
-    res.status(statusCode).json({ message: statusObj[statusCode] });
+projects.put(
+  "/:id",
+  validateProjectIdMiddleware,
+  validateProjectExistsMiddleware,
+  validateProjectStructureMiddleware,
+  async (req, res) => {
+    try {
+      const update = await updateProject(req.params.id, req.body);
+      res.status(200).json(update);
+    } catch (error) {
+      const statusObj = {
+        400: "400: Invalid Request, Project name is taken.",
+        500: error.message,
+      };
+      const statusCode = error.message === "Bad Request" ? 400 : 500;
+      res.status(statusCode).json({ message: statusObj[statusCode] });
+    }
   }
-});
+);
 
 //put project Archive status
-projects.put("/:id/archive", async (request, response) => {
-  try {
-    const { id } = request.params;
-    const currentStatus = await getOneProject(id);
-    if (currentStatus.project_id) {
+projects.put(
+  "/:id/archive",
+  validateProjectIdMiddleware,
+  validateProjectExistsMiddleware,
+  async (request, response) => {
+    try {
+      const { id } = request.params;
+      const currentStatus = await getOneProject(id);
       const updatedProject = await updateProject(id, {
         archived: !currentStatus.archived,
       });
       response.status(200).json(updatedProject);
+    } catch (error) {
+      response.status(500).json({ message: error.message });
     }
-  } catch (error) {
-    const statusObj = {
-      404: "404: Project Not Found.",
-      500: "500: Internal Server Error",
-    };
-
-    const statusCode =
-      error.message === "No data returned from the query." ? 404 : 500;
-
-    response.status(statusCode).json({ message: statusObj[statusCode] });
   }
-});
+);
 
 //get all post from project
 projects.get("/:project_id/posts", async (request, response) => {

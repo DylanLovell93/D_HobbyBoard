@@ -27,7 +27,7 @@ projects.get("/", async (_, res) => {
     const allProjects = await getAllProjects();
     res.status(200).json(allProjects);
   } catch (error) {
-    res.status(500).json({ message: "500: Internal Server Error" });
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -43,7 +43,7 @@ projects.get(
       res.status(200).json(singleProject);
     } catch (error) {
       res.status(500).json({
-        message: "500: Internal Server Error",
+        message: error.message,
       });
     }
   }
@@ -65,7 +65,7 @@ projects.post(
         message:
           statusCode === 400
             ? "400: Bad Request, Project name is taken."
-            : "500: Internal Server Error",
+            : error.message,
       });
     }
   }
@@ -82,7 +82,7 @@ projects.delete(
       res.status(200).json(removeProject);
     } catch (error) {
       res.status(500).json({
-        message: "500: Internal Server Error",
+        message: error.message,
       });
     }
   }
@@ -101,10 +101,9 @@ projects.put(
     } catch (error) {
       const statusObj = {
         400: "400: Invalid Request, Project name is taken.",
-        500: "500: Internal Server Error",
+        500: error.message,
       };
-      const statusCode =
-        (error.message === error.message) === "Bad Request" ? 400 : 500;
+      const statusCode = error.message === "Bad Request" ? 400 : 500;
       res.status(statusCode).json({ message: statusObj[statusCode] });
     }
   }
@@ -124,7 +123,7 @@ projects.put(
       });
       response.status(200).json(updatedProject);
     } catch (error) {
-      response.status(500).json({ message: "500: Internal Server Error" });
+      response.status(500).json({ message: error.message });
     }
   }
 );

@@ -11,8 +11,8 @@ const fieldTypes = {
 const requiredFields = ["name", "details", "creator"];
 
 const validateProjectIdMiddleware = (req, res, next) => {
-  const id = Number(req.params.id);
-  if (!id || id > 9999999999 || !Number.isInteger(id)) {
+  const project_id = Number(req.params.project_id);
+  if (!project_id || project_id > 9999999999 || !Number.isInteger(project_id)) {
     return res.status(400).json({ message: "400: Invalid Project ID" });
   } else {
     next();
@@ -20,9 +20,9 @@ const validateProjectIdMiddleware = (req, res, next) => {
 };
 
 const validateProjectExistsMiddleware = async (req, res, next) => {
-  const id = Number(req.params.id);
+  const project_id = Number(req.params.project_id);
   try {
-    await getOneProject(id);
+    await getOneProject(project_id);
   } catch (error) {
     const statusCode =
       error.message === "No data returned from the query." ? 404 : 500;

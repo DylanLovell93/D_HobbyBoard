@@ -39,7 +39,8 @@ projects.get(
   async (req, res) => {
     try {
       const { project_id } = req.params;
-      const singleProject = await getOneProject(project_id);
+      const getPosts = req.query.posts === "true";
+      const singleProject = await getOneProject(project_id, getPosts);
       res.status(200).json(singleProject);
     } catch (error) {
       res.status(500).json({

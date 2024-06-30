@@ -7,7 +7,15 @@ const db = require("../db/dbConfig");
 const getAllPosts = async ({ project_id }) => {
   try {
     const allPosts = await db.any(
-      "SELECT * FROM posts WHERE project_id=$1 ORDER BY date ASC",
+      `SELECT 
+        posts.*, 
+        count(likes.*) as totalLikes, 
+        array_agg(likes.username) as likes, 
+        (SELECT json_agg(comments.*) FROM comments WHERE posts.post_id = comments.post_id) as comments
+      FROM posts 
+      LEFT JOIN likes ON posts.post_id = likes.post_id 
+      WHERE project_id=$1 
+      GROUP BY posts.post_id`,
       project_id
     );
     return allPosts;
@@ -20,7 +28,17 @@ const getAllPosts = async ({ project_id }) => {
 const getOnePost = async ({ project_id, post_id }) => {
   try {
     const onePost = await db.one(
-      "SELECT * FROM posts WHERE project_id=$1 AND post_id=$2",
+      `SELECT 
+        posts.*,
+        count(likes.*) as totalLikes,
+        array_agg(likes.username) as likes, 
+        (
+          SELECT json_agg(comments.*) FROM comments WHERE comments.post_id = posts.post_id 
+        ) as comments 
+      FROM posts 
+      LEFT JOIN likes ON posts.post_id = likes.post_id
+      WHERE posts.project_id=$1 AND posts.post_id=$2 
+      GROUP BY posts.post_id`,
       [project_id, post_id]
     );
     return onePost;
@@ -33,8 +51,8 @@ const getOnePost = async ({ project_id, post_id }) => {
 const createPost = async (project_id, members_only, title, contents, date) => {
   try {
     const newPost = await db.one(
-      "INSERT INTO posts (project_id, members_only, title, contents, date, likes) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [project_id, members_only, title, contents, date, [""]]
+      "INSERT INTO posts (project_id, members_only, title, contents, date) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [project_id, members_only, title, contents, date]
     );
     return newPost;
   } catch (error) {
@@ -59,7 +77,7 @@ const deletePost = async ({ project_id, post_id }) => {
 //getLikes
 const getLikes = async (post_id) => {
   try {
-    const likes = await db.one("SELECT likes FROM posts WHERE post_id=$1", [
+    const likes = await db.any("SELECT * FROM likes WHERE post_id=$1", [
       post_id,
     ]);
     return likes;
@@ -70,24 +88,11 @@ const getLikes = async (post_id) => {
 
 //like/unlike
 const postLike = async (post_id, username) => {
-  let currentLikes = await getLikes(post_id);
-  //check if user already in the like array
-  let count = currentLikes.likes.length;
-  if (currentLikes.likes.includes(username)) {
-    //if so remove
-    const removeLike = await db.one(
-      "UPDATE posts SET likes=array_remove(likes, $1) WHERE post_id=$2 RETURNING *",
-      [username, post_id]
-    );
-    return count - 1;
-  } else {
-    //if not add
-    const addLike = await db.one(
-      "UPDATE posts SET likes=array_append(likes, $1) WHERE post_id=$2 RETURNING *",
-      [username, post_id]
-    );
-    return count + 1;
-  }
+  const likes = await db.one(`SELECT toggle_likes($2, $1);`, [
+    post_id,
+    username,
+  ]);
+  return likes;
 };
 
 //export queries

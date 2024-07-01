@@ -122,7 +122,6 @@ projects.put(
       const updatedProject = await toggleArchived(project_id);
       response.status(200).json(updatedProject);
     } catch (error) {
-      console.log(error);
       response.status(500).json({ message: error.message });
     }
   }

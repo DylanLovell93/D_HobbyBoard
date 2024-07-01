@@ -89,6 +89,16 @@ const updateProject = async (
   return update;
 };
 
+//toggle archived value in project
+const toggleArchived = async (project_id) => {
+  const toggledProject = await db.one(
+    `UPDATE projects SET archived = NOT archived WHERE project_id = $1 RETURNING *;`,
+    [project_id]
+  );
+
+  return toggledProject;
+};
+
 //export query functions
 module.exports = {
   getAllProjects,
@@ -96,4 +106,5 @@ module.exports = {
   getOneProject,
   deleteProject,
   updateProject,
+  toggleArchived,
 };

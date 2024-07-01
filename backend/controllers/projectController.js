@@ -6,6 +6,7 @@ const {
   getOneProject,
   deleteProject,
   updateProject,
+  toggleArchived,
 } = require("../queries/projectsQueries");
 
 const {
@@ -112,16 +113,13 @@ projects.put(
 
 //put project Archive status
 projects.put(
-  "/:id/archive",
+  "/:project_id/archive",
   validateProjectIdMiddleware,
   validateProjectExistsMiddleware,
   async (request, response) => {
     try {
-      const { id } = request.params;
-      const currentStatus = await getOneProject(id);
-      const updatedProject = await updateProject(id, {
-        archived: !currentStatus.archived,
-      });
+      const { project_id } = request.params;
+      const updatedProject = await toggleArchived(project_id);
       response.status(200).json(updatedProject);
     } catch (error) {
       response.status(500).json({ message: error.message });

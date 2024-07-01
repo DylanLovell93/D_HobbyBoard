@@ -3,12 +3,13 @@ CREATE DATABASE hobbyboard_dev;
 
 \c hobbyboard_dev;
 
-DROP TABLE IF EXISTS projects, users, connections,posts, comments,testTable ;
+DROP TABLE IF EXISTS projects, users, connections, posts, comments, testTable, likes;
 
 CREATE TABLE testTable (
     test_id SERIAL PRIMARY KEY,
     content TEXT NOT NULL
 );
+
 CREATE TABLE users (
     username TEXT NOT NULL PRIMARY KEY,
     password TEXT,
@@ -30,9 +31,6 @@ CREATE TABLE projects (
     FOREIGN KEY (creator) REFERENCES users(username)
 );
 
-
-
-
 CREATE TABLE connections (
     username TEXT,
     project_id INTEGER,
@@ -49,7 +47,6 @@ CREATE TABLE posts (
     date timestamp NOT NULL,
     title TEXT NOT NULL,
     contents TEXT NOT NULL,
-    likes TEXT [],
     FOREIGN KEY(project_id) REFERENCES projects(project_id) ON DELETE CASCADE
 );
 
@@ -62,3 +59,33 @@ CREATE TABLE comments (
     FOREIGN KEY(post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
     FOREIGN KEY(username) REFERENCES users(username) ON DELETE CASCADE
 );
+
+CREATE TABLE likes (
+    like_id SERIAL PRIMARY KEY,
+    username TEXT,
+    post_id INTEGER,
+    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
+    UNIQUE (username, post_id)
+);
+
+    CREATE OR REPLACE FUNCTION toggle_likes(
+        usern TEXT, 
+        pid INTEGER
+    ) 
+    RETURNS INTEGER AS $$
+    
+    BEGIN
+    
+        perform FROM likes WHERE username = usern and post_id = pid;
+        IF NOT FOUND THEN
+            INSERT INTO likes (username, post_id) VALUES(usern, pid);
+            RETURN 1;
+           
+        ELSE
+             DELETE FROM likes WHERE username = usern and post_id = pid;
+            RETURN 0;
+        END IF;
+    END;     
+    $$
+    LANGUAGE plpgsql;

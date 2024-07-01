@@ -31,15 +31,15 @@ INSERT INTO connections (username, project_id, permissions) VALUES
 ('RS', 4, 'collaborator');
 
 
-INSERT INTO posts (project_id, members_only, date, title, contents, likes) VALUES 
-(1, false, '2020-9-04 10:23:54', 'Character model: Lisa', 'We just finished the first charater model. Check out Lisa HERE', ARRAY ['RS', 'BZ','JD','DylanL']),
-(2, true, '2020-9-05 10:23:54', 'Post 2', 'This is our second test post', ARRAY ['']),
-(2, false, '2020-9-06 10:23:54', 'Post 3', 'This is our third test post', ARRAY ['']),
-(2, false, '2020-9-07 10:23:54', 'Post 4', 'This is our fourth test post', ARRAY ['']),
-(3, true, '2022-3-04 10:23:54', 'Group Links', 'Discord: -here-, Facebook: -here-', ARRAY ['']),
-(3, false, '2022-5-07 10:23:54', 'LF Video Editor', 'We''re in Alpha! Looking for members to help with video editing! ', ARRAY ['', 'JD', 'BZ']),
-(4, false, '2020-9-08 10:23:54', 'Post 5', 'This is our fifth test post', ARRAY ['']),
-(1, false, '2020-9-04 10:23:54', 'Character model: Jacob', 'We just finished up Lisa''s husband Jacob. Check it the new model HERE', ARRAY ['RS', 'BZ','JD','DylanL']);
+INSERT INTO posts (project_id, members_only, date, title, contents) VALUES 
+(1, false, '2020-9-04 10:23:54', 'Character model: Lisa', 'We just finished the first charater model. Check out Lisa HERE'),
+(2, true, '2020-9-05 10:23:54', 'Post 2', 'This is our second test post'),
+(2, false, '2020-9-06 10:23:54', 'Post 3', 'This is our third test post'),
+(2, false, '2020-9-07 10:23:54', 'Post 4', 'This is our fourth test post'),
+(3, true, '2022-3-04 10:23:54', 'Group Links', 'Discord: -here-, Facebook: -here-'),
+(3, false, '2022-5-07 10:23:54', 'LF Video Editor', 'We''re in Alpha! Looking for members to help with video editing! '),
+(4, false, '2020-9-08 10:23:54', 'Post 5', 'This is our fifth test post'),
+(1, false, '2020-9-04 10:23:54', 'Character model: Jacob', 'We just finished up Lisa''s husband Jacob. Check it the new model HERE');
 
 INSERT INTO comments (post_id, username, comment, date) VALUES 
 (1, 'DylanL', 'Wow, this is amazing', '2020-9-05 10:23:54'),
@@ -52,3 +52,16 @@ INSERT INTO comments (post_id, username, comment, date) VALUES
 (4, 'JD', 'Test comment 8', '2020-9-05 10:23:54'),
 (6, 'JD', 'Sounds good!', '2022-6-03 10:23:54'),
 (6, 'BZ', 'Works for me!', '2022-6-04 10:23:54');
+
+INSERT INTO likes (post_id, username) VALUES 
+(1, 'RS'),
+(1, 'BZ'),
+(1, 'JD'),
+(1, 'DylanL'),
+(6, 'JD'),
+(6, 'BZ'),
+(8, 'RS'),
+(8, 'BZ'),
+(8, 'JD'),
+(8, 'DylanL');
+

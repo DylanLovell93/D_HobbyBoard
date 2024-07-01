@@ -8,8 +8,25 @@ const getAllProjects = async () => {
 
 const getOneProject = async (project_id, getPosts) => {
   const queryString = getPosts
-    ? "SELECT projects.*, json_agg(posts.*) as posts FROM projects JOIN (SELECT posts.*, json_agg(comments.*) as comments FROM posts JOIN comments ON posts.post_id = comments.post_id GROUP BY posts.post_id) as posts ON posts.project_id = projects.project_id WHERE projects.project_id = $1 GROUP BY projects.project_id;"
+    ? `SELECT projects.*, json_agg(posts.*) as posts 
+      FROM projects 
+      LEFT JOIN (
+        SELECT 
+          posts.*, 
+          count(likes.*) as totalLikes, 
+          json_agg(likes.username) as likes, 
+          (SELECT json_agg(comments.*) FROM comments WHERE posts.post_id = comments.post_id) as comments
+        FROM posts
+        LEFT JOIN likes
+        ON posts.post_id = likes.post_id 
+        GROUP BY posts.post_id
+      ) as posts
+      ON posts.project_id = projects.project_id
+      WHERE projects.project_id=$1
+      GROUP BY projects.project_id
+      `
     : "SELECT * FROM projects WHERE project_id=$1";
+
   const targetProject = await db.one(queryString, project_id);
   return targetProject;
 };

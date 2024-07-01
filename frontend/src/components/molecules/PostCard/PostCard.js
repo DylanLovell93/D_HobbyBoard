@@ -9,22 +9,30 @@ const PostCard = ({
   project_image,
   creator,
   reloadPosts,
-  postInfo: { post_id, project_id, members_only, date, title, contents, likes },
+  postInfo: {
+    post_id,
+    project_id,
+    members_only,
+    date,
+    title,
+    contents,
+    likes,
+    totallikes,
+  },
 }) => {
   // console.log(likes.length);
   const URL = process.env.REACT_APP_API_URL;
   const [comments, setComments] = useState([]);
   const [refreshPost, setReset] = useState(false);
   const username = localStorage.getItem("credentials");
-  const [likesDisplay, setLikes] = useState(likes.length - 1);
+  const [totalLikes, setTotalLikes] = useState(Number(totallikes));
   const [currentlyLike, setCurrentLikes] = useState(
     likes.includes(localStorage.getItem("credentials")) ? true : false
   );
-  console.log(currentlyLike);
   const trigReset = () => {
     setReset(!refreshPost);
   };
-  console.log(likesDisplay);
+
   const renderedComments = comments.map((e, i) => (
     <CommCard
       creator={creator}
@@ -53,10 +61,19 @@ const PostCard = ({
   };
   const handleLike = () => {
     if (!username) return;
-    setCurrentLikes(!currentlyLike);
+    const plusLike = () => {
+      setCurrentLikes(true);
+      setTotalLikes(totalLikes + 1);
+    };
+
+    const minLike = () => {
+      setCurrentLikes(false);
+      setTotalLikes(totalLikes - 1);
+    };
+
     axios
       .post(`${URL}posts/${post_id}/likes/${username}`)
-      .then((response) => setLikes(response.data - 1))
+      .then((res) => (res.data.toggle_likes ? plusLike() : minLike()))
       .catch((error) => console.warn(error));
   };
 
@@ -75,7 +92,7 @@ const PostCard = ({
             <span className="postDate">({formattedDate})</span>
           </div>
           <div>
-            likes: {likesDisplay}
+            likes: {totalLikes}
             {"  "}
             {currentlyLike ? (
               <span className="likeButton" onClick={handleLike}>

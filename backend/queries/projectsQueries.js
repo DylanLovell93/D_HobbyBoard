@@ -45,10 +45,6 @@ const createProject = async ({
     "INSERT INTO projects (name, details, project_image, archived, creator) VALUES ($1, $2, $3, $4, $5) RETURNING *",
     [name, details, project_image, archived, creator]
   );
-  await db.one(
-    "INSERT INTO connections (username, project_id, permissions) VALUES ($1, $2, $3) RETURNING *",
-    [newProject.creator, newProject.project_id, "owner"]
-  );
   return newProject;
 };
 
@@ -68,15 +64,16 @@ const deleteProject = async (id) => {
 //input(id, project)
 //output updated project
 const updateProject = async (
-  id,
-  { name, details, project_image, archived }
+  project_id,
+  { name, details, project_image, archived, creator }
 ) => {
   const updateQuery = updateProjectQueryBuilder({
-    id,
+    project_id,
     name,
     details,
     project_image,
     archived,
+    creator,
   });
   //try to update project
   const update = await db.one(

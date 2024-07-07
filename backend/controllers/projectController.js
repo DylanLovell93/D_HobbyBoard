@@ -92,13 +92,13 @@ projects.delete(
 
 //put project
 projects.put(
-  "/:id",
+  "/:project_id",
   validateProjectIdMiddleware,
   validateProjectExistsMiddleware,
   validateProjectStructureMiddleware,
   async (req, res) => {
     try {
-      const update = await updateProject(req.params.id, req.body);
+      const update = await updateProject(req.params.project_id, req.body);
       res.status(200).json(update);
     } catch (error) {
       const statusObj = {

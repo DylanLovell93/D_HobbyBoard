@@ -18,10 +18,6 @@ INSERT INTO projects(name, details, project_image, archived, creator) VALUES
 ('Legal Drive', 'An illegal racing game that takes place in New York city, where racers can coordinate street racing events using an underground App. This App will track winners and transfer money to participants.', 'https://www.harlemworldmagazine.com/wp-content/uploads/2020/09/The-Fate-Of-The-Furious-64-f3.jpg', false, 'BZ');
 
 INSERT INTO connections (username, project_id, permissions) VALUES
-('RS', 1, 'owner'),
-('JD', 2, 'owner'),
-('DylanL', 3, 'owner'),
-('BZ', 4, 'owner'),
 ('BZ', 2, 'collaborator'),
 ('BZ', 2, 'follow'),
 ('BZ', 3, 'collaborator'),

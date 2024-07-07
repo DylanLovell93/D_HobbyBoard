@@ -89,3 +89,19 @@ CREATE TABLE likes (
     END;     
     $$
     LANGUAGE plpgsql;
+
+
+    CREATE OR REPLACE FUNCTION f_add_project_creator()
+    RETURNS TRIGGER AS $$
+    BEGIN
+        INSERT INTO connections (username, project_id, permissions) VALUES (NEW.creator, NEW.project_id, 'owner');
+        RETURN NULL;
+    END;    
+    $$ 
+    LANGUAGE 'plpgsql';
+
+    CREATE TRIGGER add_project_creator 
+    AFTER INSERT
+    ON projects
+    FOR EACH ROW
+    EXECUTE PROCEDURE f_add_project_creator();

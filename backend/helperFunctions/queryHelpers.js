@@ -1,12 +1,13 @@
 const updateProjectQueryBuilder = ({
-  id,
+  project_id,
   name,
   details,
   project_image,
   archived,
+  creator,
 }) => {
-  const variableObj = { name, details, project_image, archived };
-  const queryVariables = [id];
+  const variableObj = { name, details, project_image, archived, creator };
+  const queryVariables = [project_id];
   let varNum = 2;
   let query = [];
 
@@ -15,6 +16,7 @@ const updateProjectQueryBuilder = ({
     details: "string",
     project_image: "string",
     archived: "boolean",
+    creator: "string",
   };
 
   for (let key in variableObj) {
